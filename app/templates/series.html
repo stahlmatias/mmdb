@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% set active_page = "tv" %}
+
+{% block section %}
+TV Shows
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+    	<h1>TV Shows</h1>
+    	<hr>
+		{% for serie in series  %}
+		 <div class="row">
+			<div class="col-lg-3 col-md-4 col-sm-5 col-6">
+                <a style="text-decoration:none; color:inherit;" href="/tv/{{ serie.serie_id }}"><img class="card-img-top" style="min-width: 120px" src="static/img/series/{{ serie.poster }}" alt="{{ serie.title }}"></a>
+			</div>
+			<div class="col-lg-4 col-md-6 col-sm-7 col-6">
+				<strong><h4 class="d-none d-md-block">{{ serie.title }}</h4></strong>
+				<p><b>Year:</b> {{ serie.year }}</p>
+				<p><b>Episodes:</b> {{ serie.season_episodes }}</p>
+				<p><b>TV Network:</b> {{ serie.network }}</p>
+			</div>
+		 </div><hr>
+		{% endfor %}
+		<div class="container mt-2">
+			<div class="d-flex justify-content-center">		
+				<a class="btn btn-light  mx-2" style="text-decoration:none; color:inherit;" href="{{ first_page_url }}"><i class="fa fa-angle-double-left"></i></a>
+				<a class="btn btn-light  mx-2" style="text-decoration:none; color:inherit;" href="{{ prev_url }}"><i class="fa fa-arrow-left"></i></a>
+				<button type="button" class="btn btn-secondary mx-2 font-weight-bold" disabled>{{ page }}</button>
+				<a class="btn btn-light  mx-2" style="text-decoration:none; color:inherit;" href="{{ next_url }}"><i class="fa fa-arrow-right"></i></a>
+				<a class="btn btn-light  mx-2" style="text-decoration:none; color:inherit;" href="{{ last_page_url }}"><i class="fa fa-angle-double-right"></i></a>
+			</div>
+		</div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block section %}
+Search Results
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h3>Search Results for: {{ search }}</h3>
+     	{% for movie in movies %}
+            {% if loop.first %}<h4>Movies:</h4>{% endif %}
+            <p><a class="text-secondary" href="movie/{{ movie.movie_id }}">{{ movie.title }} ({{ movie.director.name }})</a></p>
+        {% else %} 
+            <h4>Movies:</h4><p>No movies found</p>
+        {% endfor %}
+      	{% for director in directors %}
+            {% if loop.first %}<h4>Directors:</h4>{% endif %}
+            <p><a class="text-secondary" href="director/{{ director.director_id }}">{{ director.name }}</a></p>
+        {% else %}
+            <h4>Directors:</h4><p>No directors found</p>
+    	{% endfor %}
+        <br>
+    </div>
+{% endblock %}

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta name="google-site-verification" content="D2kerZ4VXd14hDtUllOpc8p9TwvirI-5G73u2qUNBMI" />
+    <!-- Required meta tags -->
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Mat's personal film collection. Great directors and great films.">
+		<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+		<meta property="og:type" content="website" />	
+		<meta property="og:title" content="Mat's Movie Database" />
+		<meta property="og:description" content="Mat's personal film collection. Great directors and great films." />
+		
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
+        <link href="//code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+		<style>
+			.card-img-top{
+			  width:100% !important; 
+			  height:auto !important;
+			}
+			.center-it{
+				text-align: center;
+				vertical-align: middle !important;
+			}
+	    </style>    
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" ></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+		<title>{% block section %}{% endblock %} - MMDb - Movies, movies, movies...</title>
+
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark container">
+			<a class="navbar-brand" href="/">MMDb</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+		  
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			    <ul class="navbar-nav mr-auto">
+					{% set navigation_bar = [ ('/', 'index', 'Home'),
+						('/directors', 'directors', 'Directors'),
+						('/movies', 'movies', 'Movies'),
+						('/top10', 'top10', 'Top 10'),
+						('/tv', 'tv', 'TV'),
+						('/about', 'about', 'About')
+					] -%}
+					{% set active_page = active_page|default('index') -%}
+							{% for href, id, caption in navigation_bar %}
+						<li{% if id == active_page %} class="nav-item active"{% else %} class="nav-item"{% endif %}><a class="nav-link" href="{{ href|e }}">{{ caption|e }}</a></li>
+					{% endfor %}
+				</ul>
+				<form action="/search" class="form-inline my-2 my-lg-0">
+					<div class="form-inline">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Search MMDb" name="q">
+						</div>
+						<div class="form-group ml-1">
+							<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</nav>
+		<div class="d-none d-md-block">
+			<div class="container">
+				<div class="jumbotron" style="background: url(/static/img/bg4.jpg) no-repeat center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;">
+					<h1 class="display-4" style="text-align: center; color:#C42D00; font-weight:700; font-size: 3rem;">THE MAT'S MOVIE DATABASE</h1>
+					<p class="lead" style="text-align: center; font-weight:900">MY GROWING FILM COLLECTION FINALLY IN PLACE.</p>
+				</div>
+			</div>
+		</div>
+    </head>
+    <body class="mb-5">
+	{% block content %}{% endblock %}
+	<br>
+    </body>
+    <footer class="footer navbar-dark bg-dark fixed-bottom container">
+      <div class="container">
+        <span class="text-muted"><i class="fa fa-bullhorn"></i> 2018 | Do yourself a favor and watch movies.</span>
+      </div>
+    </footer>
+</html>

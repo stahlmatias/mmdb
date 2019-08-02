@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% set active_page = "movies" %}
+{% block section %}
+Movies
+{% endblock %}
+
+{% block content %}
+	<script>
+		$(function(){
+			$("#movies_table").bootstrapTable({
+				striped: true,
+				pagination: true,
+				//sortName: "title"
+			});
+		});
+	
+	</script>
+    <div class="container">
+    	<h1>Movies</h1>
+    	<hr>
+		<div class="d-none d-lg-block">
+			<table class="table table-bordered table-responsive table-hover">
+				<thead>
+					<tr>
+						<th class="center-it">Poster</th>
+						<th class="center-it">Title</th>
+						<th class="center-it"><a style="text-decoration:none; color:inherit;" href="/movies?order=director&by={{ by }}">Director</a></th>
+						<th class="center-it">Year</th>
+						<th class="center-it">Country</th>
+						<th class="center-it">Actors</th>
+						<th class="center-it">Genre</th>
+						<th class="center-it"><a style="text-decoration:none; color:inherit;" href="/movies?order=imdb_rank&by={{ by }}">IMDb Rank</a></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for movie in movies %}
+						<tr>
+							<td><a style="text-decoration:none; color:inherit;" href="/movie/{{ movie.movie_id }}"><img class="card-img-top" style="min-width: 120px; max-width: 300px" src="static/img/movies/{{ movie.poster }}" alt="{{ movie.title }}"></a></td>
+							<td>{{ movie.title }}</td>
+							<td>{{ movie.director.name }}</td>
+							<td>{{ movie.year }}</td>
+							<td>{{ movie.country }}</td>
+							<td>{{ movie.actors }}</td>
+							<td>{{ movie.genre }}</td>
+							<td>{{ movie.imdb_rank }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="d-lg-none">
+				<table class="table table-bordered table-responsive table-hover">
+				<thead>
+					<tr>
+						<th class="center-it">Poster</th>
+						<th class="center-it"><a style="text-decoration:none; color:inherit;" href="/movies?order=director&by={{ by }}">Director</a></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for movie in movies %}
+						<tr>
+							<td><a style="text-decoration:none; color:inherit;" href="/movie/{{ movie.movie_id }}"><img class="card-img-top" style="min-width: 120px; max-width: 300px" src="static/img/movies/{{ movie.poster }}" alt="{{ movie.title }}"></a></td>
+							<td>{{ movie.director.name }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		
+		<div class="container mt-2">
+			<div class="d-flex justify-content-center">		
+				<a class="btn btn-light  mx-2" style="text-decoration:none; color:inherit;" href="{{ first_page_url }}"><i class="fa fa-angle-double-left"></i></a>
+				<a class="btn btn-light  mx-2" style="text-decoration:none; color:inherit;" href="{{ prev_url }}"><i class="fa fa-arrow-left"></i></a>
+				<button type="button" class="btn btn-secondary mx-2 font-weight-bold" disabled>{{ page }}</button>
+				<a class="btn btn-light  mx-2" style="text-decoration:none; color:inherit;" href="{{ next_url }}"><i class="fa fa-arrow-right"></i></a>
+				<a class="btn btn-light  mx-2" style="text-decoration:none; color:inherit;" href="{{ last_page_url }}"><i class="fa fa-angle-double-right"></i></a>
+			</div>
+		</div>
+    </div>
+{% endblock %}

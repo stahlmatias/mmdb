@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% set active_page = "about" %}
+
+{% block section %}
+About
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+    	<h1>About</h1>
+    	<hr>
+	{% for what in about %}
+            <h3>{{ what.about }}</h3>
+            <p>{{ what.description }}</p>
+    	{% endfor %}
+    </div>
+{% endblock %}
+

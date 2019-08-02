@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% set active_page = "directors" %}
+
+{% block section %}
+{{ director.name }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="col-12" style="min-height: 350px">
+            <h1>{{ director.name }}</h1>
+            <hr>
+            <img class="mr-3 mb-2" style="float: left; max-width: 100%" src="../static/img/directors/{{ director.photo }}" alt="{{ director.name }}">
+            <p>{{ director.bio }}</p>
+            {% if director.movies %}<b>Movies:</b> {% for movie in director.movies|sort(attribute='year') %}<a class="text-secondary" href="/movie/{{ movie.movie_id }}">{{ movie.title }} ({{ movie.year }})</a>{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+            </b><p><b>Picked in:</b> {% for picked in director.picked %}<a class="text-secondary" href="/seen/{{ picked.year() }}/{{ picked.month() }}">{{ picked.date.strftime('%B %Y') }}</a>{% if not loop.last %}, {% endif %}{% else %}Never picked yet{% endfor %}</p>
+        </div>
+    </div>
+{% endblock %}

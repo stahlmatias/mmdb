@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% set active_page = "tv" %}
+
+{% block section %}
+{{ serie.title }}
+{% endblock %}
+
+{% block content %}
+    <style>  
+    @media screen and (min-width: 600px) {
+        /* For mobile phones: */
+        #poster {
+            float: left;
+            }
+    }
+    </style>
+
+    <div class="container">
+        <div class="col-12" style="min-height: 350px">
+            <h1>{{ serie.title }}</h1>
+            <hr>
+            <img id="poster" class="mr-3 mb-2" style="max-height: 300px" src="../static/img/series/{{ serie.poster }}" alt="{{ serie.title }}">
+            <p>{{ serie.plot }}</p>
+            <p><b>Year:</b> {{ serie.year }}</p>
+            <p><b>Episodes:</b> {{ serie.season_episodes }}</p>
+            <p><b>TV Network:</b> {{ serie.network }}</p>
+            <br>
+        </div>
+    </div>
+{% endblock %}

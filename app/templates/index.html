@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block section %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+<style>
+	.list-group-item.active{
+		background-color: #afafaf !important;
+		border-color: #afafaf !important;
+	}
+</style>
+
+	<div class="container">
+        <div class="container">
+            <h1>Seen {% if this_month %}lately{% else %}in {{ seen.monthName() }} {{ seen.year() }}{% endif %}</h1>
+            <hr>
+            <div class="row">
+                <div class="col-auto mr-auto" style="flex: 0 1 auto !important;">
+                    <h3>Director picked</h3>
+					
+					<ul class="list-group">
+						<a class="list-group-item list-group-item-action" href="/director/{{ seen.director_id }}"> {{ seen.director.name }}</a>
+						{% if seen.director.movies %}{% for movie in seen.director.movies[0:3] %}
+							<a class="list-group-item list-group-item-action" href="/movie/{{ movie.movie_id }}">- {{ movie.title }} ({{movie.year}})</a>
+						{% endfor %}{% endif %}
+					</ul>
+					<br>
+                    <h3>In Theaters</h3>
+					<ul class="list-group">
+						{% set theater = seen.theater.split('|') %}
+						{% for show in theater %}
+							{% if show != 'None' %}
+								<a class="list-group-item list-group-item-action" href="/movie/{{ show.split(';')[0] }}">{{ show.split(';')[1] }}</a>
+							{% else %}
+								<li class="list-group-item">None</li>
+							{% endif %}
+						{% endfor %}
+					</ul>
+                    <br>
+                    <h3>On TV</h3>
+					<ul class="list-group">
+						{% set tv = seen.tv.split('|') %}
+						{% for show in tv %}
+							{% if show != 'None' %}
+								<a class="list-group-item list-group-item-action" href="/tv/{{ show.split(',')[0] }}">{{ show.split(',')[1] }}</a>
+							{% else %}
+								<li class="list-group-item">None</li>
+							{% endif %}
+						{% endfor %}
+					</ul>
+                    <br>
+                    <p class="text-muted">Last update: {{ last_update.date.strftime('%Y-%m-%d') }}</p>
+                </div>
+                <div class="col-auto" style="flex: 0 1 auto !important;">
+                    <h4>What I watched</h4>
+                    {% set aux_year = namespace(found=1900) %}
+                    {% for seen in seenlist %}
+                        {% if seen.year() != aux_year.found %}
+                            {% if not loop.first %}</ul></div>{% endif %}
+                            <a class="list-group-item list-group-item-action rounded mt-1 {% if seen.year()|int == year|int %}active{% endif %}" data-toggle="collapse" href="#collapse{{ seen.year() }}" role="button" aria-expanded="false" aria-controls="collapse{{ seen.year() }}">{{ seen.year() }}</a>
+							<div class="collapse {% if seen.year()|int == year|int %}show{% endif %}" id="collapse{{ seen.year() }}">
+							<ul class="list-group mb-2">
+                            {% set aux_year.found = seen.year() %}
+                        {% endif %}
+							<a class="list-group-item list-group-item-action {% if seen.month()|int == month|int and seen.year()|int == year|int %}active{% endif %}" href="/seen/{{ seen.year() }}/{{ seen.month() }}">{{ seen.monthName() }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% set active_page = "movies" %}
+
+{% block section %}
+{{ movie.title }}
+{% endblock %}
+
+{% block content %}
+    <style>  
+    @media screen and (min-width: 600px) {
+        /* For mobile phones: */
+        #poster {
+            float: left;
+            }
+    }
+    </style>
+
+    <div class="container">
+        <div class="col-12" style="min-height: 350px">
+            <h1>{{ movie.title }}</h1>
+            <hr>
+            <img id="poster" class="mr-3 mb-2" style="max-height: 300px" src="../static/img/movies/{{ movie.poster }}" alt="{{ movie.title }}">
+            <p>{{ movie.plot }}</p>
+            <p><b>Director:</b> <a class="text-secondary" href="../director/{{ movie.director.director_id }}">{{ movie.director.name }}</a></p>
+            <p><b>Year:</b> {{ movie.year }}</p>
+            <p><b>Country:</b> {{ movie.country }}</p>
+            <p><b>Actors:</b> {{ movie.actors }}</p>
+            <p><b>Genre:</b> {{ movie.genre }}</p>
+            <p><b>IMDb Rank:</b> {{ movie.imdb_rank }}</p>
+            <br>
+        </div>
+    </div>
+{% endblock %}

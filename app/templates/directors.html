@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% set active_page = "directors" %}
+
+{% block section %}
+Directors
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+    	<h1>Directors</h1>
+    	<hr>
+		<div class="row">
+			{% for director in directors %}
+				<div class="col-lg-3 col-md-4 col-sm-6 my-2">
+					<div class="card text-center">                                                                    
+						<a href="director/{{ director.director_id }}"><img class="card-img-top" src="static/img/directors/{{ director.photo }}" alt="{{ director.name }}"></a>
+						<div class="card-body" style="height: 5rem">
+							<p class="card-text">{{ director.name }}</p>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+    </div>
+	
+    <div class="container mt-2">
+		<div class="d-flex justify-content-center">
+			<a class="btn btn-light mx-2" style="text-decoration:none; color:inherit;" href="{{ first_page_url }}"><i class="fa fa-angle-double-left"></i></a>
+			<a class="btn btn-light mx-2" style="text-decoration:none; color:inherit;" href="{{ prev_url }}"><i class="fa fa-arrow-left"></i></a>
+			<button type="button" class="btn btn-secondary mx-2 font-weight-bold" disabled>{{ page }}</button>
+			<a class="btn btn-light mx-2" style="text-decoration:none; color:inherit;" href="{{ next_url }}"><i class="fa fa-arrow-right"></i></a>
+			<a class="btn btn-light mx-2" style="text-decoration:none; color:inherit;" href="{{ last_page_url }}"><i class="fa fa-angle-double-right"></i></a>
+		</div>
+	</div>
+{% endblock %}
